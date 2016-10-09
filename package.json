@@ -1,7 +1,7 @@
 {
   "name": "falcor-supertest-datasource",
   "version": "1.0.1",
-  "description": "A Falcor DataSource class for easily testing Express-based Falcor-Router routes using SuperTest",
+  "description": "A Falcor DataSource class for easily testing Falcor-Router Express routes using SuperTest",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV='test' node test/"
