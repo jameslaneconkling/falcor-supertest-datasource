@@ -1,0 +1,29 @@
+{
+  "name": "falcor-supertest-datasource",
+  "version": "1.0.0",
+  "description": "A Falcor DataSource class for easily testing Express-based Falcor-Router routes using SuperTest",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jameslaneconkling/falcor-supertest-datasource.git"
+  },
+  "keywords": [
+    "falcor",
+    "falcor-router",
+    "supertest",
+    "test"
+  ],
+  "author": "jameslaneconkling",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jameslaneconkling/falcor-supertest-datasource/issues"
+  },
+  "homepage": "https://github.com/jameslaneconkling/falcor-supertest-datasource#readme",
+  "dependencies": {
+    "rx": "^4.1.0",
+    "supertest": "^2.0.0"
+  }
+}
