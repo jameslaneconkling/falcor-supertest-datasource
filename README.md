@@ -2,8 +2,6 @@
 
 A Falcor DataSource class for testing Falcor routes using [SuperTest](https://github.com/visionmedia/supertest).
 
-===
-
 Testing with a Falcor Model has a few added benefits over testing w/ direct HTTP requests:
 * requests are made using Falcor's path syntax, rather than the equivalent HTTP queryparams/request body
 * responses are equivalent to what the client receives, e.g. by resolving refs
