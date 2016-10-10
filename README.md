@@ -1,5 +1,7 @@
 # Falcor SuperTest DataSource
 
+[![Build Status](https://travis-ci.org/jameslaneconkling/falcor-supertest-datasource.svg?branch=master)](https://travis-ci.org/jameslaneconkling/falcor-supertest-datasource)
+
 A Falcor DataSource class for testing Falcor routes using [SuperTest](https://github.com/visionmedia/supertest).
 
 Testing with a Falcor Model has a few added benefits over testing w/ direct HTTP requests:
