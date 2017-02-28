@@ -43,6 +43,32 @@ test('Should return get request', assert => {
 });
 
 
+test.skip('Should handle unsafe url characters', assert => {
+  assert.plan(1);
+  const model = setupFalcorTestModel(dbConstructor({seed: seedFilePath}));
+
+  const expectedResponse = {
+    folderList: {
+      0: {
+        id: 1,
+        name: 'root folder',
+        parentId: null
+      },
+      1: {
+        id: 2,
+        name: 'folder1',
+        parentId: 1
+      }
+    }
+  };
+
+  model.get(['folderList', {'to': 1}, ['id', 'name', 'parentId', 'unsafe#char']])
+    .subscribe(res => {
+      assert.deepEqual(res.json, expectedResponse);
+    }, assertFailure);
+});
+
+
 test('Should return set request', assert => {
   assert.plan(2);
   const model = setupFalcorTestModel(dbConstructor({seed: seedFilePath}));

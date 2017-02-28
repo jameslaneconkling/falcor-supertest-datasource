@@ -10,7 +10,7 @@ module.exports = class SuperTestDataSource {
   get(pathSet) {
     return Rx.Observable.create(observer => {
       request(this.app)
-        .get(`${this.url}?method=get&paths=${JSON.stringify(pathSet)}`)
+        .get(`${this.url}?method=get&paths=${encodeURIComponent(JSON.stringify(pathSet))}`)
         .end((err, res) => {
           if (err) {
             return observer.onError(err);
@@ -29,7 +29,7 @@ module.exports = class SuperTestDataSource {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
           method: 'set',
-          jsonGraph: JSON.stringify(jsonGraphEnvelope)
+          jsonGraph: encodeURIComponent(JSON.stringify(jsonGraphEnvelope))
         })
         .end((err, res) => {
           if (err) {
@@ -49,10 +49,10 @@ module.exports = class SuperTestDataSource {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
           method: 'call',
-          callPath: JSON.stringify(callPath),
-          arguments: JSON.stringify(args),
-          pathSuffixes: JSON.stringify(refPaths),
-          paths: JSON.stringify(thisPaths)
+          callPath: encodeURIComponent(JSON.stringify(callPath)),
+          arguments: encodeURIComponent(JSON.stringify(args)),
+          pathSuffixes: encodeURIComponent(JSON.stringify(refPaths)),
+          paths: encodeURIComponent(JSON.stringify(thisPaths))
         })
         .end((err, res) => {
           if (err) {
