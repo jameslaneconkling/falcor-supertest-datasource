@@ -29,7 +29,9 @@ module.exports = class SuperTestDataSource {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
           method: 'set',
-          jsonGraph: encodeURIComponent(JSON.stringify(jsonGraphEnvelope))
+          // superagent automatically encodes body
+          // jsonGraph: encodeURIComponent(JSON.stringify(jsonGraphEnvelope))
+          jsonGraph: JSON.stringify(jsonGraphEnvelope)
         })
         .end((err, res) => {
           if (err) {
@@ -49,10 +51,15 @@ module.exports = class SuperTestDataSource {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
           method: 'call',
-          callPath: encodeURIComponent(JSON.stringify(callPath)),
-          arguments: encodeURIComponent(JSON.stringify(args)),
-          pathSuffixes: encodeURIComponent(JSON.stringify(refPaths)),
-          paths: encodeURIComponent(JSON.stringify(thisPaths))
+          // superagent automatically encodes body
+          // callPath: encodeURIComponent(JSON.stringify(callPath)),
+          // arguments: encodeURIComponent(JSON.stringify(args)),
+          // pathSuffixes: encodeURIComponent(JSON.stringify(refPaths)),
+          // paths: encodeURIComponent(JSON.stringify(thisPaths))
+          callPath: JSON.stringify(callPath),
+          arguments: JSON.stringify(args),
+          pathSuffixes: JSON.stringify(refPaths),
+          paths: JSON.stringify(thisPaths)
         })
         .end((err, res) => {
           if (err) {

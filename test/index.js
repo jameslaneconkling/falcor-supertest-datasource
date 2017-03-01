@@ -43,7 +43,7 @@ test('Should return get request', assert => {
 });
 
 
-test.skip('Should handle unsafe url characters', assert => {
+test.skip('Should handle get with unsafe url characters', assert => {
   assert.plan(1);
   const model = setupFalcorTestModel(dbConstructor({seed: seedFilePath}));
 
@@ -62,7 +62,7 @@ test.skip('Should handle unsafe url characters', assert => {
     }
   };
 
-  model.get(['folderList', {'to': 1}, ['id', 'name', 'parentId', 'unsafe#char']])
+  model.get(['folderList', {'to': 1}, ['id', 'name', 'parentId', 'un/"safe"c#har']])
     .subscribe(res => {
       assert.deepEqual(res.json, expectedResponse);
     }, assertFailure);
@@ -98,6 +98,60 @@ test('Should return set request', assert => {
 });
 
 
-test.skip('Should return call request', assert => {
-  assert.fail('TODO');
+test('Should handle set with unsafe url characters', assert => {
+  assert.plan(2);
+  const model = setupFalcorTestModel(dbConstructor({seed: seedFilePath}));
+  const expectedResponse = {
+    foldersById: {
+      2: {
+        name: 'folder1/edit1#'
+      }
+    }
+  };
+
+  model.set({
+    path: ['foldersById', 2, 'name'],
+    value: 'folder1/edit1#'
+  })
+    .subscribe(res => {
+      assert.deepEqual(res.json, expectedResponse, 'set returns updated value');
+
+      // clear client cache, to ensure subsequent tests run against server db
+      model.setCache({});
+
+      model.getValue(['foldersById', 2, 'name'])
+        .subscribe(name => {
+          assert.equal(name, 'folder1/edit1#', 'updated value is persisted');
+        });
+    }, assertFailure(assert));
+});
+
+
+test('Should return call request', assert => {
+  assert.plan(1);
+  const model = setupFalcorTestModel(dbConstructor({seed: seedFilePath}));
+  const expectedResponse = {
+    foldersById: {
+      2: {
+        folders: {
+          2: {
+            id: 10,
+            name: 'folder1.3',
+            parentId: 2
+          },
+          length: 3
+        }
+      }
+    }
+  };
+
+  const callPath = ['foldersById', 2, 'folders', 'createSubFolder'];
+  const args = ['folder1.3'];
+  const refPaths = [[['id', 'parentId', 'name']]];
+  const thisPaths = [['length']];
+
+  model.call(callPath, args, refPaths, thisPaths)
+    .subscribe(res => {
+      assert.deepEqual(res.json, expectedResponse);
+    });
 });

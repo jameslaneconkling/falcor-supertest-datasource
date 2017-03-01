@@ -99,9 +99,11 @@ module.exports = db => {
         const ids = callPath.ids;
         const newFolders = args;
 
-        return Rx.Observable.from(ids)
+        return Rx.Observable.of(...ids)
           .flatMap(id => {
-            return Rx.Observable.from(newFolders).map(newFolder => Object.assign(newFolder, {id}));
+            return Rx.Observable.of(...newFolders).map(newFolderName => {
+              return { id, name: newFolderName }
+            });
           })
           .concatMap(folder => {
             // create folder

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 module.exports = (db) => {
   const app = express();
 
-  app.use(bodyParser.json());
+  // app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
   app.use('/api/model.json', require('./falcor')(db));
